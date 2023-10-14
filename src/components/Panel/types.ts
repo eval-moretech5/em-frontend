@@ -32,3 +32,9 @@ export interface TransportTypeIconProps {
     color: string;
     style: CSSProperties;
 }
+
+export interface PlaceCardType {
+    personTypeTab: PersonFilterType;
+    weekStart: string;
+    selectedDay: string;
+}

@@ -17,6 +17,7 @@ const mapStateToProps = (storeState: any) => {
         expanded: storeState.panel.expanded,
         routes: storeState.map.routes,
         selectedRoute: storeState.map.selectedRoute,
+        placeCard: storeState.panel.placeCard,
     }
 }
 
@@ -46,6 +47,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         routeClick: (i: number) => {
             dispatch(mapSlice.actions.selectRoute(i));
         },
+        changeWeekStart: (weekStart: string) => {
+            dispatch(panelSlice.actions.changeWeekStart(weekStart));
+        },
+        changeSelectedDay: (selectedDay: string) => {
+            dispatch(panelSlice.actions.changeSelectedDay(selectedDay));
+        }
     }
 }
 

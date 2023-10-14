@@ -50,8 +50,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             }
             dispatch(mapSlice.actions.setUserPointType(userPointType));
         },
-        fetchAtmBankTitles: () => {
+        initPanel: () => {
             dispatch(getAtmBanksTitlesAction());
+            dispatch(panelSlice.actions.initPlaceCard());
         }
     }
 };

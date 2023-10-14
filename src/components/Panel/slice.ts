@@ -3,7 +3,7 @@ import {
     AtmBanks,
     AvailableServicesFilterType,
     FilterActionPayload, Filters, PanelType,
-    PersonFilterType,
+    PersonFilterType, PlaceCardType,
     TransportFilterType
 } from "components/Panel/types";
 
@@ -20,8 +20,55 @@ export const panelSlice = createSlice({
         } as Filters,
         atmBanks: {} as AtmBanks,
         displayType: "overviewFilter" as PanelType,
+        placeCard: {
+            personTypeTab: "PHYSICAL" as PersonFilterType,
+            weekStart: "",
+            selectedDay: "",
+        } as PlaceCardType
     },
     reducers: {
+        changeWeekStart: (state, action: PayloadAction<string>) => {
+            return {
+                ...state,
+                placeCard: {
+                    ...state.placeCard,
+                    weekStart: action.payload
+                }
+            }
+        },
+        changeSelectedDay: (state, action: PayloadAction<string>) => {
+            return {
+                ...state,
+                placeCard: {
+                    ...state.placeCard,
+                    selectedDay: action.payload
+                }
+            }
+        },
+        initPlaceCard: (state) => {
+            const now: Date = new Date();
+
+            const daysToRemove: number = now.getDay() == 0
+                ? 6
+                : now.getDay() - 1;
+
+            const weekStart = new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                now.getDate() - daysToRemove
+            );
+
+            const weekStartString = weekStart.getFullYear() + "-" + (weekStart.getMonth() + 1) + "-" + weekStart.getDate();
+
+            return {
+                ...state,
+                placeCard: {
+                    ...state.placeCard,
+                    weekStart: weekStartString,
+                    selectedDay: weekStartString
+                }
+            }
+        },
         openOverviewFilter: (state) => {
             return {
                 ...state,

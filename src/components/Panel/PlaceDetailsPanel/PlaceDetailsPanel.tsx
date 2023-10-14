@@ -1,16 +1,22 @@
 import React, {Component} from "react";
 import {Place, Route, UserPointType} from "components/Map/types";
-import {Button, Collapse, Divider, Space, Typography} from "antd";
+import {Button, Collapse, Divider, Space, Tabs, Typography} from "antd";
 import {AiOutlineClose} from "react-icons/ai";
-import {AtmBanks, Filters, FilterType, PanelFilterValueType} from "components/Panel/types";
-import {FaUser, FaUserTie} from "react-icons/fa6";
+import {
+    AtmBanks,
+    Filters,
+    FilterType,
+    PanelFilterValueType,
+    PersonFilterType,
+    PlaceCardType
+} from "components/Panel/types";
 import {FaWheelchair} from "react-icons/fa";
 import {FindRoutesButton} from "components/Panel/Filters/FindRoutesButton";
 import {WhereFromFilter} from "components/Panel/Filters/WhereFromFilter";
 import TransportTypeSwitcher from "components/Panel/Filters/TransportTypeSwitcher/TransportTypeSwitcher";
 import {ItemType} from "rc-collapse/es/interface";
 import RouteList from "components/Panel/OverviewFilterPanel/Routes/RouteList";
-import LineStatistic from "components/Panel/PlaceDetailsPanel/LineStatistic";
+import PersonTypeTab from "components/Panel/PlaceDetailsPanel/PersonTypeTab";
 
 interface PlaceDetailsPanelProps {
     place: Place;
@@ -20,6 +26,7 @@ interface PlaceDetailsPanelProps {
     expanded: Array<string>;
     routes: Array<Route>;
     selectedRoute: number;
+    placeCard: PlaceCardType;
 
     buildRoute: () => void;
     closeDetails: () => void;
@@ -27,6 +34,8 @@ interface PlaceDetailsPanelProps {
     setFilter: (type: FilterType, value: PanelFilterValueType) => void;
     expand: (items: Array<string>) => void;
     routeClick: (i: number) => void;
+    changeWeekStart: (weekStart: string) => void;
+    changeSelectedDay: (selectedDay: string) => void;
 }
 
 export default class PlaceDetailsPanel extends Component<PlaceDetailsPanelProps> {
@@ -75,29 +84,34 @@ export default class PlaceDetailsPanel extends Component<PlaceDetailsPanelProps>
                 accordion={true}
             />
 
-            <Typography.Title level={5} style={{ marginTop: "5px" }}>Обслуживание</Typography.Title>
-
-            {
-                this.props.place.serviceLegalEntity
-                    ? <Space style={{ display: "inline-flex", justifyContent: "space-between", width: "100%", marginBottom: "15px" }}>
-                        <Typography.Text style={{ verticalAlign: "middle" }}>
-                            <FaUserTie color="#336AF7" size={20} style={{ marginRight: "20px" }} /> Юридические лица
-                        </Typography.Text>
-                        <Button shape="round" style={{ borderColor: "#336AF7", }}>Записаться</Button>
-                    </Space>
-                    : null
-            }
-
-            {
-                this.props.place.type == "ATM" || this.props.place.serviceNaturalEntity
-                    ? <Space style={{ display: "inline-flex", justifyContent: "space-between", width: "100%" }}>
-                        <Typography.Text style={{ verticalAlign: "middle",  }}>
-                            <FaUser color="#336AF7" size={20} style={{ marginRight: "20px" }} /> Физические лица
-                        </Typography.Text>
-                        <Button shape="round" style={{ borderColor: "#336AF7", }}>Записаться</Button>
-                    </Space>
-                    : null
-            }
+            <Tabs
+                defaultActiveKey="1"
+                items={[
+                    {
+                        key: "PHYSICAL" as PersonFilterType,
+                        label: "Физические лица",
+                        children: <PersonTypeTab
+                            key="PHYSICAL"
+                            schedule={this.props.place.textSchedule.naturalEntity}
+                            placeCard={this.props.placeCard}
+                            changeWeekStart={this.props.changeWeekStart}
+                            changeSelectedDay={this.props.changeSelectedDay}
+                        />
+                    },
+                    {
+                        key: "LEGAL" as PersonFilterType,
+                        label: "Юридические лица",
+                        children: <PersonTypeTab
+                            key="LEGAL"
+                            schedule={this.props.place.textSchedule.legalEntity}
+                            placeCard={this.props.placeCard}
+                            changeWeekStart={this.props.changeWeekStart}
+                            changeSelectedDay={this.props.changeSelectedDay}
+                        />
+                    },
+                ]}
+                onChange={(v) => console.log(v)}
+            />
 
             {
                 this.props.place.serviceLowMobility
@@ -109,49 +123,6 @@ export default class PlaceDetailsPanel extends Component<PlaceDetailsPanelProps>
                         </Typography.Paragraph>
                       </>
                     : null
-            }
-
-            <Divider style={{ margin: "5px 0" }} />
-
-            {
-                this.props.place.type == "BRANCH"
-                    ? <LineStatistic />
-                    : null
-            }
-
-            <Divider style={{ margin: "5px 0" }} />
-            <Typography.Title level={5} style={{ marginTop: "5px" }}>Режим работы отделения</Typography.Title>
-
-            {
-                this.props.place.type == "BRANCH"
-                    ? <>
-                        {
-                            this.props.place.serviceLegalEntity
-                                ? <>
-                                    <Typography.Paragraph strong>Для юридических лиц</Typography.Paragraph>
-                                    <Typography.Paragraph type="secondary">{this.props.place.textSchedule.legalEntity}</Typography.Paragraph>
-                                  </>
-                                : null
-                        }
-                        {
-                            this.props.place.serviceNaturalEntity
-                                ? <>
-                                    <Typography.Paragraph strong>Для юридических лиц</Typography.Paragraph>
-                                    <Typography.Paragraph type="secondary">{this.props.place.textSchedule.naturalEntity}</Typography.Paragraph>
-                                  </>
-                                : null
-                        }
-                    </>
-                    : <>
-                        <Typography.Paragraph strong>Для физических лиц</Typography.Paragraph>
-                        <Typography.Paragraph type="secondary">
-                            {
-                                this.props.place.schedule?.from
-                                    ? this.props.place.schedule?.from + "-" + this.props.place.schedule?.till
-                                    : "Круглосуточно"
-                            }
-                        </Typography.Paragraph>
-                      </>
             }
 
         </>;

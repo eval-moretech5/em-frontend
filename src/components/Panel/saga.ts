@@ -56,8 +56,6 @@ export function* watchGetAtmBanksTitles() {
     yield takeEvery(sagaActionTypes.GET_ATM_BANK_TITLES, workerGetAtmBanksTitles);
 }
 
-
-
 function* findAndDisplayRoutes(toSelectedPlace: boolean) {
     try {
         const from: Point = yield select(fromPoint);

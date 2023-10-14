@@ -5,6 +5,7 @@ import {store} from "store/store";
 import {ConnectedMap} from "components/Map/ConnectedMap";
 import {ConnectedMapSwitcher} from "components/MapSwitcher/ConnectedMapSwitcher";
 import {ConnectedPanel} from "components/Panel/ConnectedPanel";
+import "utils/app.css"
 
 const App: React.FC = () => {
 
@@ -26,7 +27,7 @@ const App: React.FC = () => {
             <div style={{ position: "fixed", top: "20px", right: "50px", width: "auto" }}>
                 <ConnectedMapSwitcher />
             </div>
-            <div style={{ position: "fixed", top: "20px", left: "20px", width: "380px" }}>
+            <div className="scrollbar-hidden" style={{ position: "fixed", top: "20px", left: "20px", width: "380px", maxHeight: "95%", overflowY: "scroll" }}>
                 <Card style={{ width: '100%' }}>
                     <ConnectedPanel />
                 </Card>

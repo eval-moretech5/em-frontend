@@ -31,7 +31,7 @@ export interface OverviewFilterPanelProps {
     routeClick: (i: number) => void;
     setFilter: (type: FilterType, value: PanelFilterValueType) => void;
     setUserPointType: (userPointType: UserPointType) => void;
-    fetchAtmBankTitles: () => void;
+    initPanel: () => void;
 }
 
 class OverviewFilterPanel extends Component<OverviewFilterPanelProps> {
@@ -88,7 +88,7 @@ class OverviewFilterPanel extends Component<OverviewFilterPanelProps> {
     }
 
     componentDidMount() {
-        this.props.fetchAtmBankTitles();
+        this.props.initPanel();
     }
 }
 
