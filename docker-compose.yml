@@ -1,0 +1,7 @@
+version: "3"
+services:
+  ui:
+    container_name: eval2023-ui
+    image: eshurupov/eval2023-ui:1.0
+    ports:
+      - 9000:9000
