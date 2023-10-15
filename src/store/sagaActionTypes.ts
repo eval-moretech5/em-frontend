@@ -4,4 +4,5 @@ export const sagaActionTypes = {
     GET_ROUTES: "saga/map/get-routes",
     GET_ROUTES_TO_PLACE: "saga/map/get-routes-to-place",
     GET_ATM_BANK_TITLES: "saga/map/get-atm-bank-titles",
+    GET_DAY_LINE_STAT: "saga/map/get-day-line-stat",
 };

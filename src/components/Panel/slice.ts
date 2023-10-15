@@ -3,7 +3,7 @@ import {
     AtmBanks,
     AvailableServicesFilterType,
     FilterActionPayload, Filters, PanelType,
-    PersonFilterType, PlaceCardType,
+    PersonFilterType, PlaceCardType, StatResponse,
     TransportFilterType
 } from "components/Panel/types";
 
@@ -24,9 +24,19 @@ export const panelSlice = createSlice({
             personTypeTab: "PHYSICAL" as PersonFilterType,
             weekStart: "",
             selectedDay: "",
+            lineStats: {} as StatResponse
         } as PlaceCardType
     },
     reducers: {
+        setLineStats: (state, action: PayloadAction<StatResponse>) => {
+            return {
+                ...state,
+                placeCard: {
+                    ...state.placeCard,
+                    lineStats: action.payload
+                }
+            }
+        },
         changeWeekStart: (state, action: PayloadAction<string>) => {
             return {
                 ...state,

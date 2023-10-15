@@ -37,4 +37,7 @@ export interface PlaceCardType {
     personTypeTab: PersonFilterType;
     weekStart: string;
     selectedDay: string;
+    lineStats: StatResponse
 }
+
+export type StatResponse = { [date in string]: number };

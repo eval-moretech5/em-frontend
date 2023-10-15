@@ -7,6 +7,7 @@ import {UserPointType} from "components/Map/types";
 import {determinePositionAction, loadBranchesAction} from "components/Map/saga";
 import {mapSlice} from "components/Map/slice";
 import {FilterType, PanelFilterValueType} from "components/Panel/types";
+import {getDayLineStatAction} from "components/Panel/LineStatistic/saga";
 
 const mapStateToProps = (storeState: any) => {
     return {
@@ -51,7 +52,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(panelSlice.actions.changeWeekStart(weekStart));
         },
         changeSelectedDay: (selectedDay: string) => {
-            dispatch(panelSlice.actions.changeSelectedDay(selectedDay));
+            dispatch(getDayLineStatAction(selectedDay));
         }
     }
 }

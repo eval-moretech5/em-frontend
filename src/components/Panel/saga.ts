@@ -5,14 +5,12 @@ import {
     extendedFetch,
     fromPoint,
     getLowMobilityFilter,
-    getPersonTypeFilter, getPlaces, getPremiumServiceFilter, getServiceTypeFilter,
+    getPersonTypeFilter, getPlaces, getPremiumServiceFilter, getSelectedPlace, getServiceTypeFilter,
     getTransportFilter
 } from "utils/functions";
 import {mapSlice} from "components/Map/slice";
 import {panelSlice} from "components/Panel/slice";
 import {AvailableServicesFilterType, PersonFilterType, TransportFilterType} from "components/Panel/types";
-
-const getSelectedPlace = () => (store: any) => store.map.branches[store.map.selectedBranch];
 
 export const getRoutesAction = () => {
     return {
@@ -59,7 +57,7 @@ export function* watchGetAtmBanksTitles() {
 function* findAndDisplayRoutes(toSelectedPlace: boolean) {
     try {
         const from: Point = yield select(fromPoint);
-        const to: Place = toSelectedPlace ? yield select(getSelectedPlace()) : undefined;
+        const to: Place = toSelectedPlace ? yield select(getSelectedPlace) : undefined;
         const transport: TransportFilterType = yield select(getTransportFilter);
         const premium: boolean = yield select(getPremiumServiceFilter);
         const lowMobility: boolean = yield select(getLowMobilityFilter);

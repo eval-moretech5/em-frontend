@@ -36,3 +36,7 @@ export const mapCenter = (store: any): Point => store.map.mapCenter;
 
 export const getPlaces = (store: any): Place => store.map.branches;
 export const getDisplayType = (store: any): PanelType => store.panel.displayType;
+
+export const getSelectedPlace = (store: any) => store.map.branches[store.map.selectedBranch];
+export const getSelectedPlaceId = (store: any) => store.map.branches[store.map.selectedBranch].id;
+export const getLineStatSelectedDay = (store: any) => store.panel.placeCard.selectedDay;
