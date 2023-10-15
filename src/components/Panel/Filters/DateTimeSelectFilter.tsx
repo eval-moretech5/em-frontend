@@ -1,6 +1,5 @@
 import PanelSelect from "components/Panel/Filters/PanelSelect";
 import React from "react";
-import {BiRun} from "react-icons/bi";
 import {BsCalendarDate} from "react-icons/bs";
 
 export const DateTimeSelectFilter = () => (
@@ -11,7 +10,7 @@ export const DateTimeSelectFilter = () => (
             {
                 key: "now",
                 label: "Сейчас",
-                icon: <BiRun />,
+                icon: <BsCalendarDate />,
             },
             {
                 key: "date",

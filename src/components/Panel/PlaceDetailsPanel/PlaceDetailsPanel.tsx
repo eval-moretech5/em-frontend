@@ -155,6 +155,10 @@ export default class PlaceDetailsPanel extends Component<PlaceDetailsPanelProps>
                     : null
             }
 
+            <Space><a href="/swagger-ui/index.html" target="_blank"><img src="https://netshaper.ru/site/theme/images/ban1.png" style={{ width: "100%" }} /></a></Space>
+            <Space><a href="/swagger-ui/index.html" target="_blank"><img src="https://netshaper.ru/site/theme/images/ban2.png" style={{ width: "100%" }} /></a></Space>
+
+
         </>;
     }
 
