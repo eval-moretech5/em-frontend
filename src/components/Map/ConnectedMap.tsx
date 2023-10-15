@@ -5,6 +5,7 @@ import {determinePositionAction, loadBranchesAction} from "components/Map/saga";
 import {Point} from "components/Map/types";
 import {mapSlice} from "components/Map/slice";
 import {panelSlice} from "components/Panel/slice";
+import {initAndOpenPlaceCardAction} from "components/Panel/LineStatistic/saga";
 
 const mapStateToProps = (storeState: any) => {
     return {
@@ -38,9 +39,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(mapSlice.actions.selectBranch(i));
         },
         branchClick: (i: number) => {
-            dispatch(mapSlice.actions.displayRoutes([]));
             dispatch(mapSlice.actions.selectBranch(i));
-            dispatch(panelSlice.actions.openPlaceDetails());
+            dispatch(initAndOpenPlaceCardAction());
         },
         routeClick: (i: number) => {
             dispatch(mapSlice.actions.selectRoute(i))

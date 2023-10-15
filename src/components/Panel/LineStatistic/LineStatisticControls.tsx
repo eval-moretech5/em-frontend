@@ -42,7 +42,7 @@ export const LineStatisticControls = (props:LineStatisticControlsProps) => {
                 </Button>
                 <div
                     style={{ color: "#C6C6C6", fontSize: "16px", }}
-                >{day.getDate()}/{day.getMonth()}</div>
+                >{dateFormat(day, "dd/mm")}</div>
             </div>
         </>
     });

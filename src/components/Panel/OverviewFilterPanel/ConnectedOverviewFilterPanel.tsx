@@ -7,6 +7,10 @@ import {mapSlice} from "components/Map/slice";
 import {FilterType, PanelFilterValueType} from "components/Panel/types";
 import {determinePositionAction, loadBranchesAction} from "components/Map/saga";
 import {UserPointType} from "components/Map/types";
+import {
+    initAndOpenPlaceCardAction,
+    setDefaultLineStatWeekAction
+} from "components/Panel/LineStatistic/saga";
 
 const mapStateToProps = (storeState: any) => {
     return {
@@ -34,8 +38,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         },
         branchClick: (i: number) => {
             dispatch(mapSlice.actions.selectBranch(i));
-            dispatch(panelSlice.actions.openPlaceDetails());
-            dispatch(mapSlice.actions.displayRoutes([]));
+            dispatch(initAndOpenPlaceCardAction());
         },
         routeClick: (i: number) => {
             dispatch(mapSlice.actions.selectRoute(i));
@@ -52,7 +55,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         },
         initPanel: () => {
             dispatch(getAtmBanksTitlesAction());
-            dispatch(panelSlice.actions.initPlaceCard());
+            dispatch(setDefaultLineStatWeekAction());
         }
     }
 };

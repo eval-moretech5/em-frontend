@@ -6,8 +6,8 @@ import {panelSlice} from "components/Panel/slice";
 import {UserPointType} from "components/Map/types";
 import {determinePositionAction, loadBranchesAction} from "components/Map/saga";
 import {mapSlice} from "components/Map/slice";
-import {FilterType, PanelFilterValueType} from "components/Panel/types";
-import {getDayLineStatAction} from "components/Panel/LineStatistic/saga";
+import {FilterType, PanelFilterValueType, PersonFilterType} from "components/Panel/types";
+import {getDayLineStatAction, setPlaceCardPersonTypeTabAction} from "components/Panel/LineStatistic/saga";
 
 const mapStateToProps = (storeState: any) => {
     return {
@@ -53,7 +53,10 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         },
         changeSelectedDay: (selectedDay: string) => {
             dispatch(getDayLineStatAction(selectedDay));
-        }
+        },
+        setPlaceCardPersonTypeTab: (personType: PersonFilterType) => {
+            dispatch(setPlaceCardPersonTypeTabAction(personType));
+        },
     }
 }
 

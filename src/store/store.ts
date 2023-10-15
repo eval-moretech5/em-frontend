@@ -4,7 +4,11 @@ import {configureStore} from "@reduxjs/toolkit";
 import {createRootReducer} from "store/reducer";
 import {watchDeterminePosition, watchLoadBranches} from "components/Map/saga";
 import {watchGetAtmBanksTitles, watchGetRoutes, watchGetRoutesToPlace} from "components/Panel/saga";
-import {watchGetDayLineStat} from "components/Panel/LineStatistic/saga";
+import {
+    watchGetDayLineStat,
+    watchInitAndOpenPlaceCard,
+    watchSetDefaultLineStatWeek, watchSetPlaceCardPersonTypeTab
+} from "components/Panel/LineStatistic/saga";
 
 
 const sagaMiddleware = createSagaMiddleware();
@@ -26,3 +30,6 @@ sagaMiddleware.run(watchGetRoutes);
 sagaMiddleware.run(watchGetRoutesToPlace);
 sagaMiddleware.run(watchGetAtmBanksTitles);
 sagaMiddleware.run(watchGetDayLineStat);
+sagaMiddleware.run(watchInitAndOpenPlaceCard);
+sagaMiddleware.run(watchSetDefaultLineStatWeek);
+sagaMiddleware.run(watchSetPlaceCardPersonTypeTab);

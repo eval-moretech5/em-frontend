@@ -36,6 +36,7 @@ interface PlaceDetailsPanelProps {
     routeClick: (i: number) => void;
     changeWeekStart: (weekStart: string) => void;
     changeSelectedDay: (selectedDay: string) => void;
+    setPlaceCardPersonTypeTab: (personType: PersonFilterType) => void;
 }
 
 export default class PlaceDetailsPanel extends Component<PlaceDetailsPanelProps> {
@@ -110,7 +111,7 @@ export default class PlaceDetailsPanel extends Component<PlaceDetailsPanelProps>
                         />
                     },
                 ]}
-                onChange={(v) => console.log(v)}
+                onChange={(type: string) => this.props.setPlaceCardPersonTypeTab(type as PersonFilterType)}
             />
 
             {

@@ -5,6 +5,7 @@ import PanelSelect from "components/Panel/Filters/PanelSelect";
 import {PlaceCardType, StatisticWeekType} from "components/Panel/types";
 import {LineStatisticControls} from "components/Panel/LineStatistic/LineStatisticControls";
 import {LineStatisticGraph} from "components/Panel/LineStatistic/LineStatisticGraph";
+import dateFormat from "dateformat";
 
 interface LineStatisticProps {
     placeCard: PlaceCardType;
@@ -79,19 +80,15 @@ export default class LineStatistic extends Component<LineStatisticProps> {
         for (let i = 4; i >= 0; i--) {
 
             const startDate = new Date( lastWeekStart.valueOf() - (i * 7 * 24 * 60 * 60 * 1000) );
-            const endDate = new Date( lastWeekStart.valueOf() + (6 * 24 * 60 * 60 * 1000) );
+            const endDate = new Date( startDate.valueOf() + (6 * 24 * 60 * 60 * 1000) );
 
             weekStarts.push({
-                key: startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate(),
-                label: (startDate.getDate()) + "/" + (startDate.getMonth() + 1) + "-" + (endDate.getDate()) + "/" + (endDate.getMonth() + 1),
+                key: dateFormat(startDate, "yyyy-mm-dd"),
+                label: dateFormat(startDate, "mm/dd") + "-" + dateFormat(endDate, "mm/dd"),
                 icon: <BiCalendar size={20} />
             });
         }
 
         return weekStarts;
     }
-
-    /*dateToString(date: Date): string {
-        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-    }*/
 }

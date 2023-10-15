@@ -39,4 +39,6 @@ export const getDisplayType = (store: any): PanelType => store.panel.displayType
 
 export const getSelectedPlace = (store: any) => store.map.branches[store.map.selectedBranch];
 export const getSelectedPlaceId = (store: any) => store.map.branches[store.map.selectedBranch].id;
-export const getLineStatSelectedDay = (store: any) => store.panel.placeCard.selectedDay;
+export const getLineStatSelectedDay = (store: any): string => store.panel.placeCard.selectedDay;
+
+export const getPlaceCardPersonTypeTab = (store: any): string => store.panel.placeCard.personTypeTab;
