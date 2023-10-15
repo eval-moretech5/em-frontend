@@ -55,6 +55,58 @@ export default class PlaceDetailsPanel extends Component<PlaceDetailsPanelProps>
             },
         ];
 
+        let tabs;
+
+        if (this.props.place.type == "BRANCH") {
+            tabs = [
+                {
+                    key: "PHYSICAL" as PersonFilterType,
+                    label: "Физические лица",
+                    children: <PersonTypeTab
+                        key="PHYSICAL"
+                        schedule={this.props.place.textSchedule.naturalEntity}
+                        placeCard={this.props.placeCard}
+                        changeWeekStart={this.props.changeWeekStart}
+                        changeSelectedDay={this.props.changeSelectedDay}
+                        branch={true}
+                    />,
+                    disabled: !this.props.place.serviceNaturalEntity
+                },
+                {
+                    key: "LEGAL" as PersonFilterType,
+                    label: "Юридические лица",
+                    children: <PersonTypeTab
+                        key="LEGAL"
+                        schedule={this.props.place.textSchedule.legalEntity}
+                        placeCard={this.props.placeCard}
+                        changeWeekStart={this.props.changeWeekStart}
+                        changeSelectedDay={this.props.changeSelectedDay}
+                        branch={true}
+                    />,
+                    disabled: !this.props.place.serviceLegalEntity
+                },
+            ];
+        } else {
+            let schedule = "";
+            if (this.props.place.schedule != null && this.props.place.schedule.from != null && this.props.place.schedule.till != null) {
+                schedule = this.props.place.schedule.from + "-" + this.props.place.schedule.till;
+            }
+            tabs = [
+                {
+                    key: "PHYSICAL" as PersonFilterType,
+                    label: "Физические лица",
+                    children: <PersonTypeTab
+                        key="PHYSICAL"
+                        schedule={schedule}
+                        placeCard={this.props.placeCard}
+                        changeWeekStart={this.props.changeWeekStart}
+                        changeSelectedDay={this.props.changeSelectedDay}
+                    />,
+                    disabled: !this.props.place.serviceNaturalEntity
+                }
+            ];
+        }
+
         return <>
             <Button
                 type="text"
@@ -87,30 +139,7 @@ export default class PlaceDetailsPanel extends Component<PlaceDetailsPanelProps>
 
             <Tabs
                 defaultActiveKey="1"
-                items={[
-                    {
-                        key: "PHYSICAL" as PersonFilterType,
-                        label: "Физические лица",
-                        children: <PersonTypeTab
-                            key="PHYSICAL"
-                            schedule={this.props.place.textSchedule.naturalEntity}
-                            placeCard={this.props.placeCard}
-                            changeWeekStart={this.props.changeWeekStart}
-                            changeSelectedDay={this.props.changeSelectedDay}
-                        />
-                    },
-                    {
-                        key: "LEGAL" as PersonFilterType,
-                        label: "Юридические лица",
-                        children: <PersonTypeTab
-                            key="LEGAL"
-                            schedule={this.props.place.textSchedule.legalEntity}
-                            placeCard={this.props.placeCard}
-                            changeWeekStart={this.props.changeWeekStart}
-                            changeSelectedDay={this.props.changeSelectedDay}
-                        />
-                    },
-                ]}
+                items={tabs}
                 onChange={(type: string) => this.props.setPlaceCardPersonTypeTab(type as PersonFilterType)}
             />
 
